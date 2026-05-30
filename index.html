@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>✉ Lumière — Craft Your Love Letter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Sacramento&family=Satisfy&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  CANVAS: particles, petals, aurora        -->
+<!-- ══════════════════════════════════════════ -->
+<canvas id="bgCanvas"></canvas>
+<div id="cursor-glow"></div>
+<div id="aurora"></div>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  SCREEN 1 — LANDING / HERO               -->
+<!-- ══════════════════════════════════════════ -->
+<section id="screen-landing" class="screen active">
+  <div class="landing-inner">
+    <!-- Snoopy sleeping dog deco -->
+    <div class="deco-dog" id="dogDeco">
+      <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg" class="snoopy-svg">
+        <!-- Body -->
+        <ellipse cx="60" cy="55" rx="35" ry="18" fill="#f5f0e8" stroke="#d4c5a9" stroke-width="1.5"/>
+        <!-- Head -->
+        <circle cx="88" cy="42" r="16" fill="#f5f0e8" stroke="#d4c5a9" stroke-width="1.5"/>
+        <!-- Ear -->
+        <ellipse cx="96" cy="34" rx="9" ry="13" fill="#c9a97a" transform="rotate(15 96 34)"/>
+        <!-- Ear left -->
+        <ellipse cx="80" cy="32" rx="6" ry="10" fill="#c9a97a" transform="rotate(-10 80 32)"/>
+        <!-- Eye (closed — sleeping) -->
+        <path d="M86 41 Q88 39 90 41" stroke="#5a3e2b" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Nose -->
+        <ellipse cx="94" cy="46" rx="4" ry="2.5" fill="#3d2b1f"/>
+        <!-- Tail -->
+        <path d="M28 50 Q10 30 22 22" stroke="#d4c5a9" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- Zzz -->
+        <text x="100" y="28" font-size="10" fill="#e8a0b0" font-family="serif" font-style="italic">z</text>
+        <text x="107" y="21" font-size="8" fill="#e8a0b0" font-family="serif" font-style="italic">z</text>
+        <text x="113" y="15" font-size="6" fill="#e8a0b0" font-family="serif" font-style="italic">z</text>
+      </svg>
+    </div>
+    <!-- Spider-web corner -->
+    <div class="spiderweb-corner tl"></div>
+    <div class="spiderweb-corner tr"></div>
+
+    <div class="landing-badge">✦ A LOVE STORY BEGINS ✦</div>
+    <h1 class="landing-title">
+      <span class="line1">Lumière</span>
+      <span class="line2">Love Letters</span>
+    </h1>
+    <p class="landing-sub">Craft something unforgettable.<br>A cinematic love letter, made for them.</p>
+    <button class="btn-primary" id="btnStartCreating">
+      <span class="btn-text">Begin Creating</span>
+      <span class="btn-glow"></span>
+    </button>
+    <div class="landing-hearts">
+      <span class="float-heart h1">♥</span>
+      <span class="float-heart h2">♡</span>
+      <span class="float-heart h3">♥</span>
+      <span class="float-heart h4">♡</span>
+      <span class="float-heart h5">♥</span>
+    </div>
+    <!-- Spider comic sticker -->
+    <div class="spider-sticker" id="spiderSticker">
+      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="28" fill="#1a0a2e" stroke="#c0392b" stroke-width="2"/>
+        <path d="M30 10 Q38 25 50 30 Q38 35 30 50 Q22 35 10 30 Q22 25 30 10Z" fill="#c0392b" opacity="0.7"/>
+        <!-- Web lines -->
+        <line x1="30" y1="2" x2="30" y2="58" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+        <line x1="2" y1="30" x2="58" y2="30" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+        <circle cx="30" cy="30" r="10" stroke="#ffffff" stroke-width="0.5" fill="none" opacity="0.3"/>
+        <circle cx="30" cy="30" r="20" stroke="#ffffff" stroke-width="0.5" fill="none" opacity="0.2"/>
+        <!-- Heart -->
+        <path d="M30 34 C30 34 22 27 22 23 C22 20 25 18 27.5 20 L30 22 L32.5 20 C35 18 38 20 38 23 C38 27 30 34 30 34Z" fill="#ff6b6b"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  SCREEN 2 — BUILDER / FORM               -->
+<!-- ══════════════════════════════════════════ -->
+<section id="screen-builder" class="screen">
+  <div class="builder-wrap">
+    <div class="builder-header">
+      <div class="step-indicator">
+        <div class="step active" data-step="1"><span>1</span><label>Details</label></div>
+        <div class="step-line"></div>
+        <div class="step" data-step="2"><span>2</span><label>Message</label></div>
+        <div class="step-line"></div>
+        <div class="step" data-step="3"><span>3</span><label>Memories</label></div>
+        <div class="step-line"></div>
+        <div class="step" data-step="4"><span>4</span><label>Music</label></div>
+        <div class="step-line"></div>
+        <div class="step" data-step="5"><span>5</span><label>Extras</label></div>
+      </div>
+    </div>
+
+    <!-- STEP 1 — DETAILS -->
+    <div class="form-step active" id="step1">
+      <div class="form-card glass">
+        <div class="form-card-deco">✦</div>
+        <h2 class="form-title">Who is this for?</h2>
+        <div class="field-group">
+          <label>Their Name</label>
+          <input type="text" id="recipientName" placeholder="e.g. Sofia" class="fancy-input"/>
+        </div>
+        <div class="field-group">
+          <label>Your Name</label>
+          <input type="text" id="senderName" placeholder="e.g. Marco" class="fancy-input"/>
+        </div>
+        <div class="field-group">
+          <label>Mood / Theme</label>
+          <div class="mood-grid">
+            <button class="mood-btn active" data-mood="romantic">🌹 Romantic</button>
+            <button class="mood-btn" data-mood="dreamy">✨ Dreamy</button>
+            <button class="mood-btn" data-mood="nostalgic">🌙 Nostalgic</button>
+            <button class="mood-btn" data-mood="playful">🎈 Playful</button>
+            <button class="mood-btn" data-mood="cinematic">🎬 Cinematic</button>
+            <button class="mood-btn" data-mood="cosmic">🌌 Cosmic</button>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Visual Mode</label>
+          <div class="mode-grid">
+            <button class="mode-btn active" data-mode="starry" title="Starry Night">🌟</button>
+            <button class="mode-btn" data-mode="rain" title="Rain">🌧</button>
+            <button class="mode-btn" data-mode="candle" title="Candle">🕯</button>
+            <button class="mode-btn" data-mode="dream" title="Dream">☁</button>
+            <button class="mode-btn" data-mode="aurora" title="Aurora">🌈</button>
+          </div>
+        </div>
+        <button class="btn-next" onclick="nextStep(2)">Continue <span>→</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 2 — MESSAGE -->
+    <div class="form-step" id="step2">
+      <div class="form-card glass">
+        <div class="form-card-deco">♥</div>
+        <h2 class="form-title">Write your letter</h2>
+        <div class="field-group">
+          <label>Subject / Opening Line</label>
+          <input type="text" id="letterSubject" placeholder="e.g. To my favourite person in the world…" class="fancy-input"/>
+        </div>
+        <div class="field-group">
+          <label>Your Message <span class="hint">(let it flow)</span></label>
+          <textarea id="letterBody" placeholder="Write everything you've been holding inside your heart…" class="fancy-textarea" rows="7"></textarea>
+          <div class="char-counter"><span id="charCount">0</span> characters</div>
+        </div>
+        <div class="field-group">
+          <label>Reasons I Love You <span class="hint">(one per line)</span></label>
+          <textarea id="loveReasons" placeholder="Your laugh makes everything better&#10;You make ordinary days magical&#10;I love how you see the world…" class="fancy-textarea reasons" rows="4"></textarea>
+        </div>
+        <div class="field-group">
+          <label>Secret Hidden Message <span class="hint">(tap to reveal)</span></label>
+          <input type="text" id="secretMsg" placeholder="Something only they will understand…" class="fancy-input"/>
+        </div>
+        <div class="field-group">
+          <label>Love Since (date)</label>
+          <input type="date" id="loveDate" class="fancy-input"/>
+        </div>
+        <div class="btn-row">
+          <button class="btn-back" onclick="nextStep(1)">← Back</button>
+          <button class="btn-next" onclick="nextStep(3)">Continue <span>→</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 — MEMORIES -->
+    <div class="form-step" id="step3">
+      <div class="form-card glass">
+        <div class="form-card-deco">📸</div>
+        <h2 class="form-title">Our Memories</h2>
+        <div class="field-group">
+          <label>Upload Photos <span class="hint">(up to 6)</span></label>
+          <div class="photo-drop-zone" id="photoDropZone">
+            <div class="drop-icon">📷</div>
+            <p>Drag & drop photos here<br><span>or click to browse</span></p>
+            <input type="file" id="photoInput" multiple accept="image/*" style="display:none">
+          </div>
+          <div class="photo-preview-grid" id="photoPreviewGrid"></div>
+        </div>
+        <div class="field-group">
+          <label>Memory Captions <span class="hint">(optional — one per photo)</span></label>
+          <div id="captionFields"></div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-back" onclick="nextStep(2)">← Back</button>
+          <button class="btn-next" onclick="nextStep(4)">Continue <span>→</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 — MUSIC -->
+    <div class="form-step" id="step4">
+      <div class="form-card glass">
+        <div class="form-card-deco">🎵</div>
+        <h2 class="form-title">Set the Mood</h2>
+        <div class="field-group">
+          <label>Background Music</label>
+          <div class="music-options">
+            <button class="music-opt active" data-track="none">🔇 None</button>
+            <button class="music-opt" data-track="musicbox">🎵 Music Box</button>
+            <button class="music-opt" data-track="piano">🎹 Soft Piano</button>
+            <button class="music-opt" data-track="rain">🌧 Rain & Piano</button>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Upload Custom Music <span class="hint">(mp3, optional)</span></label>
+          <div class="upload-btn-wrap">
+            <button class="upload-btn" onclick="document.getElementById('customAudio').click()">🎶 Choose Audio File</button>
+            <span id="audioFileName">No file chosen</span>
+          </div>
+          <input type="file" id="customAudio" accept="audio/*" style="display:none">
+        </div>
+        <div class="field-group">
+          <label>Record a Voice Message <span class="hint">(optional)</span></label>
+          <div class="voice-controls">
+            <button class="voice-btn" id="voiceRecord">🎙 Start Recording</button>
+            <button class="voice-btn" id="voicePlay" disabled>▶ Play Back</button>
+            <div class="voice-timer" id="voiceTimer">00:00</div>
+          </div>
+          <div id="voiceWaveform" class="voice-waveform"></div>
+        </div>
+        <div class="field-group">
+          <label>Floating Lyrics / Subtitles <span class="hint">(optional)</span></label>
+          <textarea id="lyricsText" placeholder="Add lyrics or a poem to float across the screen…" class="fancy-textarea" rows="3"></textarea>
+        </div>
+        <div class="btn-row">
+          <button class="btn-back" onclick="nextStep(3)">← Back</button>
+          <button class="btn-next" onclick="nextStep(5)">Continue <span>→</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5 — EXTRAS -->
+    <div class="form-step" id="step5">
+      <div class="form-card glass">
+        <div class="form-card-deco">💎</div>
+        <h2 class="form-title">Final Touches</h2>
+        <div class="field-group">
+          <label>Opening Song Lyric / Quote</label>
+          <input type="text" id="openingQuote" placeholder="e.g. "In a sea of people, my eyes will always search for you."" class="fancy-input"/>
+        </div>
+        <div class="field-group">
+          <label>Closing Sign-off</label>
+          <input type="text" id="signOff" placeholder="e.g. Forever yours, Marco ♥" class="fancy-input"/>
+        </div>
+        <div class="field-group">
+          <label>Choose Font Style</label>
+          <div class="font-grid">
+            <button class="font-btn active" data-font="cormorant">Cormorant</button>
+            <button class="font-btn" data-font="playfair">Playfair</button>
+            <button class="font-btn" data-font="sacramento">Sacramento</button>
+            <button class="font-btn" data-font="satisfy">Satisfy</button>
+          </div>
+        </div>
+        <div class="field-group toggle-row">
+          <label>Enable Floating Petals</label>
+          <label class="toggle-switch"><input type="checkbox" id="togglePetals" checked><span class="slider"></span></label>
+        </div>
+        <div class="field-group toggle-row">
+          <label>Enable Sparkle Trail</label>
+          <label class="toggle-switch"><input type="checkbox" id="toggleSparkle" checked><span class="slider"></span></label>
+        </div>
+        <div class="field-group toggle-row">
+          <label>Show Animated Characters</label>
+          <label class="toggle-switch"><input type="checkbox" id="toggleChars" checked><span class="slider"></span></label>
+        </div>
+        <div class="btn-row">
+          <button class="btn-back" onclick="nextStep(4)">← Back</button>
+          <button class="btn-generate" onclick="generateLetter()">
+            <span class="btn-text">✦ Generate Letter</span>
+            <span class="btn-glow"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  SCREEN 3 — SUCCESS / SHARE              -->
+<!-- ══════════════════════════════════════════ -->
+<section id="screen-share" class="screen">
+  <div class="share-inner">
+    <div class="share-confetti" id="shareConfetti"></div>
+    <div class="share-envelope" id="shareEnvelope">
+      <div class="env-body">
+        <div class="env-flap"></div>
+        <div class="env-heart">♥</div>
+      </div>
+    </div>
+    <h2 class="share-title">Your Letter is Ready</h2>
+    <p class="share-sub">Share this link and watch the magic unfold…</p>
+    <div class="link-box glass">
+      <span id="shareLinkDisplay">lumiere.love/letter/abc123</span>
+      <button class="copy-btn" id="copyLinkBtn">Copy</button>
+    </div>
+    <div class="share-buttons">
+      <button class="share-btn whatsapp" id="shareWhatsapp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        WhatsApp
+      </button>
+      <button class="share-btn telegram" id="shareTelegram">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        Telegram
+      </button>
+      <button class="share-btn instagram" id="shareInstagram">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </button>
+    </div>
+    <div class="share-actions">
+      <button class="btn-preview" onclick="openLetterPreview()">👁 Preview Letter</button>
+      <button class="btn-new" onclick="resetAll()">✦ Create Another</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  SCREEN 4 — LETTER VIEWER (cinematic)    -->
+<!-- ══════════════════════════════════════════ -->
+<section id="screen-letter" class="screen">
+  <!-- Loading intro -->
+  <div id="letter-loader" class="letter-loader">
+    <div class="loader-stars" id="loaderStars"></div>
+    <div class="loader-clouds"></div>
+    <div class="loader-text" id="loaderText">
+      <span class="loader-line">Someone made this with love</span>
+      <span class="loader-line">for you…</span>
+    </div>
+    <div class="loader-bar-wrap">
+      <div class="loader-bar" id="loaderBar"></div>
+    </div>
+  </div>
+
+  <!-- Envelope reveal -->
+  <div id="envelope-reveal" class="envelope-reveal hidden">
+    <div class="big-envelope" id="bigEnvelope">
+      <div class="big-env-body">
+        <div class="big-env-flap" id="envFlap"></div>
+        <div class="big-env-heart">♥</div>
+        <div class="big-env-bottom"></div>
+      </div>
+    </div>
+    <p class="env-prompt">✦ Tap to open ✦</p>
+  </div>
+
+  <!-- Actual letter -->
+  <div id="letter-content" class="letter-content hidden">
+    <div class="letter-bg-effects" id="letterBgEffects"></div>
+    <div class="floating-lyrics" id="floatingLyrics"></div>
+    
+    <!-- Characters on letter -->
+    <div class="letter-dog hidden" id="letterDog">
+      <svg viewBox="0 0 80 55" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="40" cy="38" rx="25" ry="13" fill="#f5f0e8" stroke="#d4c5a9" stroke-width="1.2"/>
+        <circle cx="60" cy="28" r="11" fill="#f5f0e8" stroke="#d4c5a9" stroke-width="1.2"/>
+        <ellipse cx="67" cy="21" rx="6" ry="9" fill="#c9a97a" transform="rotate(15 67 21)"/>
+        <ellipse cx="54" cy="20" rx="4" ry="7" fill="#c9a97a" transform="rotate(-10 54 20)"/>
+        <path d="M58 28 Q60 26 62 28" stroke="#5a3e2b" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="65" cy="31" rx="3" ry="2" fill="#3d2b1f"/>
+        <path d="M17 35 Q5 22 14 16" stroke="#d4c5a9" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="letter-paper" id="letterPaper">
+      <div class="letter-paper-inner">
+        <div class="letter-header-deco">✦ ♥ ✦</div>
+        <div class="letter-opening-quote" id="displayQuote"></div>
+        <div class="letter-date-display" id="displayDate"></div>
+        <h2 class="letter-salutation" id="displaySalutation"></h2>
+        <div class="letter-subject-display" id="displaySubject"></div>
+        <div class="letter-body-display" id="displayBody"></div>
+        <div class="letter-divider">— ♥ —</div>
+        <div class="love-reasons-section hidden" id="loveReasonsSection">
+          <h3 class="reasons-title">Reasons I love you</h3>
+          <div class="reasons-cards" id="reasonsCards"></div>
+        </div>
+        <div class="memories-section hidden" id="memoriesSection">
+          <h3 class="memories-title">Our Memories</h3>
+          <div class="polaroid-grid" id="polaroidGrid"></div>
+        </div>
+        <div class="secret-section hidden" id="secretSection">
+          <div class="secret-reveal-btn" id="secretRevealBtn">
+            <span class="secret-icon">🔐</span>
+            <span>Tap to reveal a secret…</span>
+          </div>
+          <div class="secret-message hidden" id="secretMessageDisplay"></div>
+        </div>
+        <div class="countdown-section hidden" id="countdownSection">
+          <h3 class="countdown-title">Together for</h3>
+          <div class="countdown-display" id="countdownDisplay">
+            <div class="count-box"><span id="cdDays">0</span><label>days</label></div>
+            <div class="count-box"><span id="cdHours">0</span><label>hours</label></div>
+            <div class="count-box"><span id="cdMins">0</span><label>minutes</label></div>
+          </div>
+        </div>
+        <div class="letter-signoff" id="displaySignOff"></div>
+        <div class="interactive-heart-wrap">
+          <div class="interactive-heart" id="interactiveHeart">♥</div>
+          <div class="heart-counter" id="heartCounter">0 hearts</div>
+        </div>
+        <div class="voice-player-section hidden" id="voicePlayerSection">
+          <div class="voice-player glass">
+            <div class="vp-icon">🎙</div>
+            <div class="vp-info">
+              <span class="vp-label">Voice Message</span>
+              <div class="vp-waveform"></div>
+            </div>
+            <button class="vp-play" id="vpPlayBtn">▶</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Music player -->
+    <div class="music-player glass" id="musicPlayer">
+      <div class="mp-visualizer">
+        <div class="eq-bar" style="--h:60%"></div>
+        <div class="eq-bar" style="--h:90%"></div>
+        <div class="eq-bar" style="--h:40%"></div>
+        <div class="eq-bar" style="--h:75%"></div>
+        <div class="eq-bar" style="--h:55%"></div>
+        <div class="eq-bar" style="--h:85%"></div>
+        <div class="eq-bar" style="--h:45%"></div>
+        <div class="eq-bar" style="--h:70%"></div>
+      </div>
+      <div class="mp-controls">
+        <button class="mp-btn" id="mpToggle">⏸</button>
+        <div class="mp-track-name" id="mpTrackName">Music Box</div>
+        <input type="range" class="mp-volume" id="mpVolume" min="0" max="1" step="0.05" value="0.5">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Audio elements (generated tones) -->
+<audio id="audioMusicBox" loop></audio>
+<audio id="audioPiano" loop></audio>
+<audio id="audioRain" loop></audio>
+<audio id="audioCustom" loop></audio>
+<audio id="voiceAudio"></audio>
+
+<!-- Sound effects (Web Audio) -->
+
+<script src="script.js"></script>
+</body>
+</html>
